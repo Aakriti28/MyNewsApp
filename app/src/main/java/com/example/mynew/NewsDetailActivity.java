@@ -25,9 +25,8 @@ import com.bumptech.glide.request.RequestOptions;
 public class NewsDetailActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
 
     private ImageView imageView;
-    private TextView appbar_title, appbar_subtitle, date, time, title;
+    private TextView appbar_title, appbar_subtitle, title;
     private boolean isHideToolbarView = false;
-    private FrameLayout date_behavior;
     private LinearLayout titleAppbar;
     private AppBarLayout appBarLayout;
     private Toolbar toolbar;
@@ -48,13 +47,10 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
 
         appBarLayout = findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(this);
-        date_behavior = findViewById(R.id.date_behavior);
         titleAppbar = findViewById(R.id.title_appbar);
         imageView = findViewById(R.id.backdrop);
         appbar_title = findViewById(R.id.title_on_appbar);
         appbar_subtitle = findViewById(R.id.subtitle_on_appbar);
-        date = findViewById(R.id.date);
-        time = findViewById(R.id.time);
         title = findViewById(R.id.title);
 
         Intent intent = getIntent();
@@ -76,7 +72,6 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
 
         appbar_title.setText(mSource);
         appbar_subtitle.setText(mUrl);
-        date.setText(Utils.DateFormat(mDate));
         title.setText(mTitle);
 
         String author;
@@ -85,8 +80,6 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
         } else {
             author = "";
         }
-
-        time.setText(mSource + author + " \u2022 " + Utils.DateToTimeFormat(mDate));
 
         initWebView(mUrl);
 
@@ -123,12 +116,10 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
         float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
 
         if (percentage == 1f && isHideToolbarView) {
-            date_behavior.setVisibility(View.GONE);
             titleAppbar.setVisibility(View.VISIBLE);
             isHideToolbarView = !isHideToolbarView;
 
         } else if (percentage < 1f && !isHideToolbarView) {
-            date_behavior.setVisibility(View.VISIBLE);
             titleAppbar.setVisibility(View.GONE);
             isHideToolbarView = !isHideToolbarView;
         }
@@ -136,24 +127,4 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_news, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.view_web){
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(mUrl));
-            startActivity(i);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

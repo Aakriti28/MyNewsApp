@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements  SwipeRefreshLayo
 
     }
 
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements  SwipeRefreshLayo
         searchMenuItem.getIcon().setVisible(false, false);
 
         return true;
-    }
+    }*/
 
     @Override
     public void onRefresh() {
